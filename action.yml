@@ -1,0 +1,31 @@
+name: "Jira Cloud Action"
+description: "Do things in Jira Cloud from Github Actions"
+inputs:
+  url:
+    description: "The URL to your Jira Cloud instance"
+    required: true
+  username:
+    description: "The user name for API requests"
+    required: true
+  token:
+    description: "The user's token for API requests"
+    required: true
+  loglevel:
+    description: "The loglevel to use"
+    default: "INFO"
+  commitParseRegExp:
+    description: "The Regexp string to use to parse Jira issue ids from commit messages. Requires a named group called id that catches the whole issue id and a group project that catches only the project key"
+    default: "\\((?P<id>(?P<project>[A-Za-z]+)-[0-9]+)\\)"
+  commentTemplate:
+    description: "The go template for the issue comment. Takes the CommitsInfo struct as an input"
+    default: |
+      *{{ .CommitsInfo.Type }}*: [{{ .CommitsInfo.AuthorName }}](mailto:{{ .CommitsInfo.AuthorEmail }}) sent {{ .Commits | len }} commit(s) to [{{ .CommitsInfo.Target }}]({{ .CommitsInfo.Target }})
+      
+      {{ range .Commits }}
+      * {{ .Message }} ([{{ .AuthorName }}](mailto:{{ .AuthorEmail }}))
+      {{ end }}
+  onlyProjects:
+    description: "If specified, only issues with these project keys are processed"
+runs:
+  using: "docker"
+  image: "Dockerfile"
