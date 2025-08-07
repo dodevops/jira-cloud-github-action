@@ -2,7 +2,7 @@
 
 ## Introduction
 
-A Github action does things in Jira Cloud triggered from Github Actions.
+A Github action that does things in Jira Cloud when triggered from a Github Actions workflow.
 
 Currently supported:
 
