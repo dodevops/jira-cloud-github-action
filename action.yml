@@ -1,5 +1,8 @@
 name: "Jira Cloud Action"
 description: "Do things in Jira Cloud from Github Actions"
+branding:
+  icon: activity
+  color: purple
 inputs:
   url:
     description: "The URL to your Jira Cloud instance"
